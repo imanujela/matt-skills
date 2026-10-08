@@ -28,3 +28,12 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 - **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
 - **Claim**: set `Status: claimed` and save before any work.
 - **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+
+## Discipline for the local tracker
+
+Because there's no server enforcing consistency, the local tracker depends on these being honoured by hand:
+
+- **One state line, one place.** Put `Status:`/`Type:`/`Blocked by:` near the top of the file and never duplicate them elsewhere; a skill reading the file trusts the top block.
+- **Append, don't overwrite.** Comments and resolution answers append under their `##` headings. Editing history that already exists deletes evidence later skills (like `/triage` resuming a session) rely on.
+- **Numbering is the order.** `01` is the earliest/bottommost blocker-free ticket; keep numbering stable once published — renumbering a published set breaks every `Blocked by` reference.
+- **Grep the frontier, don't eyeball it.** Listing `.scratch/<effort>/issues/` and checking each file's `Status:` and `Blocked by` lines programmatically beats trusting memory of what's resolved.

@@ -22,6 +22,8 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
 
+**Scope the review to what the work touched.** If the diff is noisy (a merge, lockfile churn, generated output, a vendored bump), decide the review's file scope up front and hand it to both sub-agents, so neither spends its budget re-deriving what to ignore. Note anything deliberately excluded.
+
 ### 2. Identify the spec source
 
 Look for the originating spec, in this order:
@@ -30,6 +32,8 @@ Look for the originating spec, in this order:
 2. A path the user passed as an argument.
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+
+When the spec lives on the tracker, fetch the full body **and comments**: requirements are often refined in the thread, and reviewing against the stale body alone can falsely clear a requirement that was tightened in the discussion.
 
 ### 3. Identify the standards sources
 
@@ -61,14 +65,14 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 
 **Standards sub-agent prompt** should include:
 
-- The full diff command and commit list.
+- The full diff command and commit list, plus the review's file scope from step 1.
 - The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
 - The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
 
 **Spec sub-agent prompt** should include:
 
-- The diff command and commit list.
-- The path or fetched contents of the spec.
+- The diff command and commit list, plus the review's file scope.
+- The path or fetched contents of the spec (body **and** comments).
 - The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
@@ -78,6 +82,11 @@ If the spec is missing, skip the Spec sub-agent and note this in the final repor
 Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
+
+**Close the loop.** A review that raises issues is only half the job. State plainly what must change to resolve the findings — for each hard violation, the concrete fix; for each Spec miss, the requirement to complete — and note whether the fix should land here now or as follow-up. Name both empty-child cases explicitly, because they're easy to miss:
+
+- **Zero findings on both axes** — say so in as many words; a silent "both clean" is a signal a reviewer can withhold without meaning to.
+- **No documented standards at all** — the Standards axis ran on the smell baseline alone. Flag that this repo is flying on judgement calls; the durable fix is a `CODING_STANDARDS.md`, surfaced via `/retro`.
 
 ## Why two axes
 

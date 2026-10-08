@@ -19,7 +19,7 @@ If the redacted output is not enough to diagnose the bug, say so and ask the use
 
 **This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.
 
-Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
+Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.** Budget: most of the total time on a hard bug should go to this phase, not the fix.
 
 ### Ways to construct one, in roughly this order
 
@@ -36,6 +36,8 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 
 Build the right feedback loop, and the bug is 90% fixed.
 
+**If you can't find a seam to hang a loop on, that's the finding.** The absence of a testable seam is itself a diagnosis — usually the same one `/codebase-design` would reach. Note it and flag it for `/retro` rather than giving up.
+
 ### Tighten the loop
 
 Treat the loop as a product. Once you have _a_ loop, **tighten** it:
@@ -48,7 +50,7 @@ A 30-second flaky loop is barely better than no loop; a 2-second deterministic o
 
 ### Non-deterministic bugs
 
-The goal is not a clean repro but a **higher reproduction rate**. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. A 50%-flake bug is debuggable; 1% is not, so keep raising the rate until it's debuggable.
+The goal is not a clean repro but a **higher reproduction rate**. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. A 50%-flake bug is debuggable; 1% is not, so keep raising the rate until it's debuggable. Pin whatever you can (clock, RNG seed, concurrency) to push 50% toward 100%.
 
 ### When you genuinely cannot build a loop
 
@@ -109,7 +111,7 @@ Tool preference:
 
 **Tag every debug log** with a unique prefix, e.g. `[DEBUG-a4f2]`. Cleanup at the end becomes a single grep. Untagged logs survive; tagged logs die.
 
-**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
+**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second. Without a baseline, a "fix" that halves latency relative to nothing has not been shown to fix anything.
 
 ## Phase 5: Fix + regression test
 
@@ -136,3 +138,17 @@ Required before declaring done:
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
 - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
 - [ ] The hypothesis that turned out correct is stated in the commit / PR message, so the next debugger learns
+
+## When the bug is genuinely too hard
+
+Reaching an honest dead end is not failure; a fabricated fix is. If a bug resists despite a tight, red-capable loop to the contrary (the loop says green, the user says broken), the real gap is usually one of these:
+
+- **Wrong symptom.** The loop asserts something near the user's report but not it. Re-read the report; re-pin the loop to the exact symptom.
+- **Loop/env mismatch.** The loop runs in a different environment than the reported one (prod config, seeding, data mass). Differential the loop against the real env.
+- **Multi-cause.** Two independent bugs emit the same symptom; the fix for one doesn't move the reported failure. Hunt the second cause, not loyalty to the first finding.
+
+When any of these is true, say so and loop back to Phase 1 with the corrected signal rather than closing the defect.
+
+## Retro, not optional
+
+After the fix, if you reach `[DEBUG-...]` instrumentation or a missing seam, those are findings `/retro` should turn into environment improvements. Suggest it before you clear the session.

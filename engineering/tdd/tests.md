@@ -75,3 +75,9 @@ test("calculateTotal sums line items", () => {
   expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15);
 });
 ```
+
+## The tests you write are a lens on the seams
+
+- A test name that reads "should be able to X" is a behaviour statement (good); one that reads "calls Y" is a wiring statement (flag it).
+- One assertion per test, and it should be **about the outcome**, not the intermediate call. `expect(order.status).toBe("confirmed")` and move on; don't also assert the payment gateway got called.
+- When a refactor makes a test fall, ask which is wrong. If the behaviour didn't change, the test was implementation-coupled; rewrite it, don't patch around it in the production code to satisfy it.

@@ -9,7 +9,7 @@ Design **deep modules**: a lot of behaviour behind a small interface, placed at 
 
 ## Glossary
 
-Use these terms exactly: don't substitute "component," "service," "API," or "boundary." Consistent language is the whole point.
+Use these terms exactly: don't substitute "component," "service," "API," or "boundary." Consistent language is the whole point — these terms are load-bearing, and a reviewer or collaborator can only check your reasoning if you share the vocabulary.
 
 **Module**: anything with an interface and an implementation. Deliberately scale-agnostic: a function, class, package, or tier-spanning slice. _Avoid_: unit, component, service.
 
@@ -26,6 +26,17 @@ Use these terms exactly: don't substitute "component," "service," "API," or "bou
 **Leverage**: what callers get from depth. More capability per unit of interface they learn. One implementation pays back across N call sites and M tests.
 
 **Locality**: what maintainers get from depth. Change, bugs, knowledge, and verification concentrate in one place rather than spreading across callers. Fix once, fixed everywhere.
+
+## Sacred principles
+
+Four rules, in priority order. Violating an earlier rule costs more than honouring a later one:
+
+1. **The interface is the test surface.** Callers and tests cross the same seam. If you want to test *past* the interface, the module is probably the wrong shape.
+2. **Depth is a property of the interface, not the implementation.** A deep module can be internally composed of small, mockable, swappable parts; they just aren't part of the interface. A module can have **internal seams** (private to its implementation, used by its own tests) as well as the **external seam** at its interface.
+3. **The deletion test.** Imagine deleting the module. If complexity vanishes, it was a pass-through. If complexity reappears across N callers, it was earning its keep.
+4. **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a seam unless something actually varies across it.
+
+The deletion test is the one to run on anything you suspect is shallow. A pass-through that survived is defensible dead weight; delete it. A module that concentrates complexity is earning its place — take care of it.
 
 ## Deep vs shallow
 
@@ -57,13 +68,6 @@ When designing an interface, ask:
 - Can I simplify the parameters?
 - Can I hide more complexity inside?
 
-## Principles
-
-- **Depth is a property of the interface, not the implementation.** A deep module can be internally composed of small, mockable, swappable parts; they just aren't part of the interface. A module can have **internal seams** (private to its implementation, used by its own tests) as well as the **external seam** at its interface.
-- **The deletion test.** Imagine deleting the module. If complexity vanishes, it was a pass-through. If complexity reappears across N callers, it was earning its keep.
-- **The interface is the test surface.** Callers and tests cross the same seam. If you want to test *past* the interface, the module is probably the wrong shape.
-- **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a seam unless something actually varies across it.
-
 ## Designing for testability
 
 Good interfaces make testing natural:
@@ -93,6 +97,16 @@ Good interfaces make testing natural:
    ```
 
 3. **Small surface area.** Fewer methods = fewer tests needed. Fewer params = simpler test setup.
+
+4. **Model the domain in the interface, not raw primitives.** A parameter shaped like a domain concept (an `OrderId`, a `Money`) carries its constraints into every caller; a bare `string` and `number` leave each caller to guess. This pairs with Primitive Obsession in `code-review`'s smell baseline.
+
+## When to consult this skill
+
+This is a *reference* vocabulary, not always a session to run. Reach for it when any of these are true:
+
+- The shape of a module's interface is itself in question (how deep, where the seam goes, what to expose) — `/tdd` says this verbatim before you write a test.
+- You want to find **deepening opportunities** — the survey happens in `/improve-codebase-architecture`, which calls this skill in for the terms.
+- You want to explore several radically different interfaces for a module — use the **design-it-twice** parallel sub-agent pattern in [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md).
 
 ## Relationships
 

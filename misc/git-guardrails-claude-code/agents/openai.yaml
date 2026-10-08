@@ -1,3 +1,4 @@
 interface:
   display_name: "Git Guardrails for Claude Code"
-  short_description: "Block dangerous git commands"
+  short_description: "Block dangerous git commands before they run"
+  description: "Installs a Claude Code PreToolUse hook that denies destructive git commands (push, reset --hard, clean -f/-fd, branch -D, checkout/restore . ) before they execute. Ask the user for project vs global scope, copy scripts/block-dangerous-git.sh, register the hook in settings.json, optionally customize the blocklist, then verify by piping sample commands through the script."

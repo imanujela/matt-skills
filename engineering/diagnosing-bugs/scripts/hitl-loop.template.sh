@@ -29,11 +29,23 @@ capture() {
   printf -v "$var" '%s' "$answer"
 }
 
+# capture_yesno VAR "question"      → reads y/n into VAR (defaults to 'n')
+capture_yesno() {
+  local var="$1" question="$2" answer
+  printf '\n>>> %s [y/N] ' "$question"
+  read -r -p "" answer
+  case "$answer" in
+    [Yy]*) answer="y" ;;
+    *)     answer="n" ;;
+  esac
+  printf -v "$var" '%s' "$answer"
+}
+
 # --- edit below ---------------------------------------------------------
 
 step "Open the app at http://localhost:3000 and sign in."
 
-capture ERRORED "Click the 'Export' button. Did it throw an error? (y/n)"
+capture_yesno ERRORED "Click the 'Export' button. Did it throw an error? (y/n)"
 
 capture ERROR_MSG "Paste the error message (or 'none'):"
 

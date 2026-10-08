@@ -110,3 +110,11 @@ Capture everything resolved during grilling under "established so far" so the wo
 ## Resuming a previous session
 
 If prior triage notes exist on the issue or PR, read them, check whether the reporter has answered any outstanding questions, and present an updated picture before continuing. Don't re-ask resolved questions.
+
+## Discipline under concurrency
+
+Triage reads and writes the shared tracker, and other sessions may be moving issues at the same time.
+
+- **Re-read before you write.** A role you're about to change may have moved since you gathered context. Read the issue's current state immediately before posting the outcome, and flag if it changed under you rather than overwriting.
+- **One comment per state change.** Post the decision and the reason in the same comment; a stream of incremental comments is noise the next triager has to wade through.
+- **Verify the write.** After moving a role or closing, read back that the label/state landed. A "move to ready-for-agent" that silently didn't attach means an agent will never pick the issue up.

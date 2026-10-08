@@ -1,3 +1,4 @@
 interface:
   display_name: "Setup Pre-Commit"
-  short_description: "Add pre-commit quality checks"
+  short_description: "Add pre-commit quality checks to a repo"
+  description: "Adds a Husky pre-commit hook backed by lint-staged and Prettier, with typecheck and test runs, to the current JS/TS repo. Detect the package manager, install husky + lint-staged + prettier, run `npx husky init`, write .husky/pre-commit and .lintstagedrc, create .prettierrc if missing, verify hooksPath is set, then commit so the hooks smoke-test themselves."

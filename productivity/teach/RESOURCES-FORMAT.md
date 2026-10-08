@@ -22,11 +22,25 @@
   Use for: real-time coaching feedback on lifts.
 ```
 
+## Grading a resource before it earns a slot
+
+Run each candidate through three quick checks:
+
+1. **Trust** — is it a primary source, a recognised expert, peer-reviewed, or a strongly moderated community? Marketing dressed as education fails here.
+2. **Fit** — does it serve the mission? A brilliant source on a topic the mission doesn't touch is noise.
+3. **Revertibility** — if it's a page that can change or vanish, would a durable alternative (a book, an archived article) serve better for core knowledge?
+
 ## Rules
 
 - **High-trust only.** Prefer primary sources, recognised experts, peer-reviewed work, and communities with strong moderation. If a resource is marketing dressed as education, leave it out.
 - **Annotate every entry.** A bare link is useless in three months. Add one line: what it covers and when to reach for it.
 - **Group by Knowledge / Wisdom.** Mirrors the philosophy in [SKILL.md](./SKILL.md). It is fine for a resource to appear in only one group.
 - **Surface gaps explicitly.** If no good resource exists for an area the mission needs, write a `## Gaps` section listing what is missing. This drives future search.
+
+```md
+## Gaps
+- No high-trust source on tapering for a half marathon in 10 weeks. Needed before we design the final training block.
+```
+
 - **Prune ruthlessly.** A resource that turned out to be wrong, shallow, or off-mission should be removed, not buried. Better five sharp sources than thirty mediocre ones.
 - **Record community preferences.** If the user has opted out of joining communities, note it here so future sessions don't keep proposing them.

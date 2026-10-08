@@ -1,5 +1,11 @@
 interface:
   display_name: "Wait What"
   short_description: "Re-pitch that: simpler, with the context I'm missing"
+  long_description: >
+    Re-pitch a message that did not land. Diagnose the gap first (missing
+    context, jargon, or a multi-step jump), then restructure the pitch as three
+    short moves: one line of context, the point in ASD-STE100 Simplified
+    Technical English, and glossary terms defined on first use. Shorter than the
+    failing message, same substance. Not model-invoked.
 policy:
   allow_implicit_invocation: false

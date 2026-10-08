@@ -24,6 +24,10 @@ A 1–10 self-rating of how hard a set felt, where 10 is failure and 8 means two
 _Avoid_: Effort score, intensity rating
 ```
 
+## When to create it
+
+Create the glossary early — before the first glossary-dependent lesson, ideally in the first session. You don't need all the terms up front: start with the handful a lesson will use, then grow it as the user genuinely understands each new term. An empty `GLOSSARY.md` is fine; a missing one invites ad-hoc vocabulary and every lesson re-deriving its own language.
+
 ## Rules
 
 - **Add a term only when the user understands it.** The glossary is a record of compressed knowledge, not a dictionary the user reads to learn. If the user has just been introduced to a concept, wait until they can use it correctly before promoting it here.
@@ -33,3 +37,4 @@ _Avoid_: Effort score, intensity rating
 - **Group under subheadings** when natural clusters emerge (e.g. `## Anatomy`, `## Programming`). A flat list is fine when terms cohere.
 - **Flag ambiguities explicitly.** If a term is used loosely in the wider field, note the resolution: "In this workspace, 'set' always means a working set; warm-ups are tracked separately."
 - **Revise as understanding deepens.** A definition the user wrote in week one may be wrong by week six. Update in place; do not leave stale entries.
+- **Adhere to it everywhere.** Once a term is in the glossary, every lesson, reference doc, and learning record uses it — no synonyms. Consistency is what makes the glossary a shared language rather than a list.

@@ -1,3 +1,10 @@
 interface:
   display_name: "Writing for Agents"
   short_description: "Write documents agents consume"
+  long_description: >
+    Reference for writing any document an agent consumes: skills, AGENTS.md /
+    CLAUDE.md, or any doc reached by a pointer. Covers context pointers, the
+    two loads (context vs cognitive), the information hierarchy with progressive
+    disclosure and co-location, steps and completion criteria, splitting, leading
+    words, negation, and pruning. Model-invoked; skill-specific mechanics live in
+    SKILL-MECHANICS.md.

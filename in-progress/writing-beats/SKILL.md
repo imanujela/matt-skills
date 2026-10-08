@@ -37,6 +37,12 @@ This is what shapes the choose-your-own-adventure. A candidate beat is only reac
 
 The big lever is what you make a prerequisite versus what you ground inside the piece. Demand too much up front and you shut out readers who don't have it; ground too much inside and the early beats drown in definitions. Settle this with the user when you establish prerequisites, and revisit it whenever a tempting beat turns out to require a concept nothing has grounded yet: the fix is either a grounding beat before it, or promoting the concept to a prerequisite.
 
+Three working habits keep grounding honest:
+
+- **Every time you offer beats, say explicitly** "these all assume {X} is grounded" — so the user can correct a gap in your shared picture before it costs a beat.
+- **When a beat calls for a term the pile never names**, don't invent the term silently; ask whether the reader is expected to know it (prerequisite) or whether the text must introduce it now (introduce).
+- **When you must ground a concept mid-journey**, make it a beat of its own — a short "and here's the thing you need for what's next" — rather than smuggling the definition into a beat that's doing something else.
+
 ## What is a beat
 
 A beat is one move in the journey. It does one thing: sets a scene, lands a point, asks a question, drops an aside, twists the angle. Then it stops, leaving the reader at a place where the next beat can pivot.
@@ -47,11 +53,23 @@ A beat is sized by what it needs:
 - A short paragraph if the move needs setup.
 - Multiple paragraphs if the beat is a self-contained vignette, argument, or example.
 
-If a "beat" needs five paragraphs and three subheadings, it's not a beat; it's two beats glued together. Split it.
+If a "beat" needs five paragraphs and three subheadings, it's not a beat; it's two beats glued together. Split it until each beat does one move and stops.
+
+## Choosing the beats to offer
+
+The value of the session is in *which* beats you propose, not in generating prose. When you offer candidates, make them genuinely differ — not three shades of the same move:
+
+- **Different entries** for the starting beat: one that opens with a concrete scene, one that makes the claim first and earns it later, one that starts at the payoff and backtrack.
+- **Different pivots** for the next beat: deepen what the last beat set up, branch to a related but unreached idea, or pull back to show the wider frame.
+- Each candidate should be one line that says what the move *does for the reader*, plus what it grounds — not a prose sample. If the user can't tell the candidates apart, your options weren't alternatives.
+
+Vary the *kind* of move, too: a run of three "lands a point" beats reads like an essay appendix. Mix in a scene-setter, an aside, a question. The journey's rhythm is part of the craft, not noise.
 
 ## Pulling from the pile
 
 Pull material from the raw pile to populate each beat. You can paraphrase, split, recombine, or quote. The pile is a quarry.
+
+When a beat needs something the pile doesn't hold, say so plainly rather than padding: "the pile has no concrete example here — give me one or this beat borrows one from elsewhere." Better a short honest beat than a padded one.
 
 ## Ending the journey
 
@@ -63,5 +81,6 @@ The article ends when the journey is complete, not when the pile is empty. Most 
 - Re-read the article file from disk before every write. Preserve user edits absolutely.
 - If the user edits a previous beat substantially, let it change what comes next.
 - If the user says "rewrite that beat" or "go back and try a different beat 3", do it: edit in place, leave the rest alone.
+- When the article is done, offer no more beats. Stop at a natural end and say so — don't manufacture a final beat for tidiness.
 
 </supporting-info>

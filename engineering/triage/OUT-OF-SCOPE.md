@@ -67,6 +67,8 @@ The reason should be substantive: not "we don't want this" but why. Good reasons
 
 The reason should be durable. Avoid referencing temporary circumstances ("we're too busy right now"); those aren't real rejections, they're deferrals.
 
+**Write it so a future reader can trust it.** The reader is triaging a fresh, similar request and wants to know whether *this* one should get the same no. A reason that names the architecture or philosophy survives; a reason that cites a moment ("no time this quarter") is read as permission to re-raise.
+
 ## When to check `.out-of-scope/`
 
 During triage (Step 1: Gather context), read all files in `.out-of-scope/`. When evaluating a new issue:
@@ -103,3 +105,5 @@ If the maintainer changes their mind about a previously rejected concept:
 - Delete the `.out-of-scope/` file
 - The skill does not need to reopen old issues; they're historical records
 - The new issue that triggered the reconsideration proceeds through normal triage
+
+When you *update* a file (a new prior request, a sharper reason), append or amend rather than rewriting from memory — preserve the earlier requests so the dedup history stays complete.

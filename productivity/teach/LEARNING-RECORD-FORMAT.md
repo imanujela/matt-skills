@@ -14,6 +14,16 @@ They are the teaching equivalent of ADRs: they capture non-obvious lessons, key 
 
 That is the whole format. A learning record can be a single paragraph. The value is recording _that_ this is now known and _why_ it changes what to teach next, not in filling out sections.
 
+## A filled example
+
+```md
+# Confident with the Passé, still shaky on Piqué turns
+
+The user lands a game-style passé drill cold (no prompt from the flagging) and can hold a single-leg balance with eyes closed. On Piqué turns they lose turnout and fall out of the turn; they can't yet step onto the demi-pointe without wobbling.
+
+Implications: passé is now assumed, not taught. Next session's ZPD ladder starts at Piqué preparation — the step-on, not the full turn. This also crosses off "balance" in the success list.
+```
+
 ## Optional sections
 
 Only include these when they add genuine value. Most records won't need them.

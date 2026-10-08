@@ -1,3 +1,10 @@
 interface:
   display_name: "Grilling"
   short_description: "Stress-test thinking a round of questions at a time"
+  long_description: >
+    Interview the user relentlessly about a plan, decision, or idea, modeling
+    the plan as a design tree of decisions and working the frontier in rounds.
+    Each round asks the currently answerable questions and gives a recommended
+    default answer; the user's replies recompute the frontier. Finding facts is
+    the agent's job, never the user's. Ends when every branch is settled and
+    the user confirms shared understanding.

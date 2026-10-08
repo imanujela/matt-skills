@@ -1,5 +1,11 @@
 interface:
   display_name: "Handoff"
   short_description: "Compact a conversation into a handoff"
+  long_description: >
+    Summarise the current conversation into a handoff document so a fresh agent
+    can continue the work. Written to the OS temp dir, structured as Goal /
+    Current state / Decisions / Open questions / In-flight work / How to resume
+    / Suggested skills. Duplicated artifact content is replaced by pointers and
+    sensitive information is redacted. Not model-invoked.
 policy:
   allow_implicit_invocation: false

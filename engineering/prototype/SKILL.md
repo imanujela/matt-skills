@@ -7,6 +7,8 @@ description: Build a throwaway prototype to answer a design question. Use when t
 
 A prototype is **throwaway code that answers a question**. The question decides the shape.
 
+The whole craft is keeping the answer cleanly separated from the throwaway scaffolding: the *validated decision* is the deliverable and the scaffolding is the cost of arriving at it.
+
 ## Pick a branch
 
 Identify which question is being answered, using the user's prompt, the surrounding code, or by asking if the user is around:
@@ -16,6 +18,8 @@ Identify which question is being answered, using the user's prompt, the surround
 
 The two branches produce very different artifacts, so getting this wrong wastes the whole prototype. If the question is genuinely ambiguous and the user isn't reachable, default to whichever branch better matches the surrounding code (a backend module → logic; a page or component → UI) and state the assumption at the top of the prototype.
 
+**The question is the spec. State it before you build.** Write the question you're answering in one line, where you can check it later: can the prototype, read cold, tell a future reader what it was testing? A prototype that answered the wrong question is waste regardless of how good the code is.
+
 ## Rules that apply to both
 
 1. **Throwaway from day one, and clearly marked as such.** Locate the prototype code close to where it will actually be used (next to the module or page it's prototyping for) so context is obvious, but name it so a casual reader can see it's a prototype, not production. For throwaway UI routes, obey whatever routing convention the project already uses; don't invent a new top-level structure.
@@ -24,3 +28,13 @@ The two branches produce very different artifacts, so getting this wrong wastes 
 4. **Skip the polish.** No tests, no error handling beyond what makes the prototype _runnable_, no abstractions. The point is to learn something fast.
 5. **Surface the state.** After every action (logic) or on every variant switch (UI), print or render the full relevant state so the user can see what changed.
 6. **Capture it when done.** Fold any validated decision into the real code, then capture the prototype itself as a **primary source**: commit it to a throwaway branch, out of main, and leave a context pointer to that branch on the implementation issue. Capture the answer too (the verdict and the question it settled) in the issue or a commit. The main branch keeps only the validated decision.
+
+## When a prototype is the wrong tool
+
+Reach for the other levers when the question is one of these instead:
+
+- **Series of agreed, well-scoped features** → this is real work; `/to-spec` and `/implement`.
+- **A fact you don't know** about a library or an API → `/research` beats guessing with throwaway code.
+- **"Quick sketch in my head before any code"** → `/grill-with-docs` can tighten the question without the build cost.
+
+A prototype earns its keep only when there's a genuine design question — a state model to feel out or a look to choose — that on-paper reasoning genuinely can't settle.

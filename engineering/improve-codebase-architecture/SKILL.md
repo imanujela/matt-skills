@@ -34,6 +34,8 @@ Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; expl
 
 Apply the **deletion test** to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want.
 
+**Keep the candidate list short and ranked.** A report is a decision aid, not a laundry list. If you surface more than five or six real candidates, the survey is too broad — cut to the strongest by recency × friction × testability gain. Ten mid candidates reads as noise; five strong ones reads as a call.
+
 ### 2. Present candidates as an HTML report
 
 Write a self-contained HTML file to the OS temp directory so nothing lands in the repo. Resolve the temp dir from `$TMPDIR`, falling back to `/tmp` (or `%TEMP%` on Windows), and write to `<tmpdir>/architecture-review-<timestamp>.html` so each run gets a fresh file. Open it for the user (`xdg-open <path>` on Linux, `open <path>` on macOS, `start <path>` on Windows) and tell them the absolute path.
@@ -69,3 +71,5 @@ Side effects happen inline as decisions crystallize; call the Skill tool with "d
 - **Sharpening a fuzzy term during the conversation?** Update `GLOSSARY.md` right there.
 - **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing; skip ephemeral reasons ("not worth it right now") and self-evident ones.
 - **Want to explore alternative interfaces for the deepened module?** Call the Skill tool with "codebase-design" and use its design-it-twice parallel sub-agent pattern.
+
+**The grilling decides, the deepened module is the deliverable.** This skill produces a plan and a paper trail for the chosen candidate, not a refactor contained in one session. When the shape is agreed, the natural next step is to hand the decision into the main flow at `/grill-with-docs` → `/to-spec`, so a change prompted by the report gets built the same disciplined way as any other feature.

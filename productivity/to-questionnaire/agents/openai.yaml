@@ -1,5 +1,12 @@
 interface:
   display_name: "To Questionnaire"
   short_description: "Front-load questions into a doc for someone to answer"
+  long_description: >
+    Turn a decision the user can't answer alone into a Markdown questionnaire
+    handed to the one person who does hold the knowledge. Interview the user
+    about the send (recipient + what they need back), then write questions aimed
+    at the gap, most-important-first, grouped by theme, each with an answer stub.
+    Written to to-questionnaire-<slug>.md in the current directory. Not
+    model-invoked.
 policy:
   allow_implicit_invocation: false

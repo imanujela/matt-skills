@@ -33,6 +33,8 @@ The architectural review is rendered as a single self-contained HTML file in the
 </html>
 ```
 
+The whole file must open offline-in-browser from disk when networking allows the CDNs — nothing server-side, no build step, no local assets. A reviewer double-clicks the file; that has to be enough.
+
 ## Header
 
 Repo name, date, and a compact legend: solid box = module, dashed line = seam, red arrow = leakage, thick dark box = deep module. No introduction paragraph. Straight into the candidates.
@@ -101,7 +103,7 @@ Before: a tree of function calls rendered as nested boxes. After: the same tree 
 
 ## Top recommendation section
 
-One larger card. Candidate name, one sentence on why, anchor link to its card. That's it.
+One larger card. Candidate name, one sentence on why, anchor link to its card. That's it. Defend the pick in that one sentence: "the Order intake touches every change in checkout, and the deepening deletes four wrappers" beats "high impact".
 
 ## Tone
 

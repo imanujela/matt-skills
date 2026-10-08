@@ -14,6 +14,8 @@ Issues and specs for this repo live as GitLab issues. Use the [`glab`](https://g
 
 Infer the repo from `git remote -v`; `glab` does this automatically when run inside a clone.
 
+**Labels are the one place both tools differ by default.** GitLab supports scoped labels (`group::`, `type::`) which some teams rely on heavily. Keep the five canonical role strings simple even so — the tracker's `triage-labels.md` mapping is where any existing scoped vocabulary is recorded, not guessed at.
+
 ## Merge requests as a triage surface
 
 **MRs as a request surface: no.** _(Set to `yes` if this repo treats external merge requests as feature requests; `/triage` reads this flag.)_
@@ -44,3 +46,5 @@ Used by `/wayfinder`. The **map** is a single issue with **child** issues as tic
 - **Frontier query**: `glab issue list -O json` scoped to the map's children, drop any with an open blocker: a native `blocked_by` link to an open issue (`glab api projects/:id/issues/<child-iid>/links`), or an open issue in the `Blocked by` line, or an assignee; first in map order wins.
 - **Claim**: `glab issue update <n> --assignee @me`, the session's first write.
 - **Resolve**: `glab issue note <n> --message "<answer>"`, then `glab issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
+
+**Verify the free-tier fallback is actually in use before you trust native blocks.** `/blocked_by` silently no-ops (or errors) on tiers without blocking links. After adding one, read the child back and confirm the link landed; if it didn't, drop to the body-line convention so the map's frontier stays readable.

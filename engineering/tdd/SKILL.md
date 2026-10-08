@@ -13,6 +13,8 @@ When exploring the codebase, read `GLOSSARY.md` (if it exists) so test names and
 
 Tests verify behavior through public interfaces, not implementation details. Code can change entirely; tests shouldn't. A good test reads like a specification: "user can checkout with valid cart" tells you exactly what capability exists, and it survives refactors because it doesn't care about internal structure.
 
+A test earns its keep by answering one question that matters: *does the capability the user asked for actually behave?* A test that can only change when the code changes is a transcript, not a check.
+
 See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking guidelines.
 
 ## Seams: where tests go
@@ -25,6 +27,8 @@ Ask: "What's the public interface, and which seams should we test?" Give each pr
 
 When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
 
+**Seams are a contract with the reviewer.** State them in words (in the commit or a comment), not just in code placement, so `/code-review`'s Spec axis can check "does the test cover what we agreed it would" rather than reverse-engineering intent.
+
 ## Anti-patterns
 
 - **Implementation-coupled**: mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). The tell: the test breaks when you refactor but behavior hasn't changed.
@@ -36,3 +40,12 @@ When the shape of that interface is itself in question (how deep the module is, 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+
+## Running the loop
+
+1. **Write / place the failing test** at the agreed seam. Run it alone; watch it fail for the *right* reason (a missing capability, not a setup error). A test that fails because the fixture is broken teaches nothing yet.
+2. **Write the minimal implementation** that makes it pass — enough code to go green, no more. A slice that passes but added speculative branches has overreached.
+3. **Re-run the whole slice** — the passing test plus any earlier ones at the same seam — so you haven't broken what you've built.
+4. **Repeat** for the next slice. Each pass confirms the previous slices still behave; the suite grows one capability at a time.
+
+The three signs a cycle went wrong: the failing test refused to fail (it passed before implementation — see tautological), the green came from the fixture rather than the code, or the slice silently grew past "one minimal implementation" before it went green.

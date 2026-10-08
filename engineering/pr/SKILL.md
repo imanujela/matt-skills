@@ -36,6 +36,8 @@ Use this template for writing the PR body:
 
 Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
 
+A reviewer reads the PR to answer three questions, in order: *what changed, is it true, and what's the risk?* Each section answers exactly one of those. If a section can't answer its question, cut it rather than pad it.
+
 ### Summary
 
 Pick the smallest view that makes the key point clear.
@@ -153,7 +155,7 @@ function expandSkill(command: string): string {
 
 Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed to answer the user's current question or the options to resolve the current discussion point.
 
-You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.
+You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user. Pick *one* dominant visual for the change's central idea and let any secondary ones support rather than compete.
 
 ### Evidence
 
@@ -163,8 +165,12 @@ Screenshots are S-tier - when the environment is set up for it and the change is
 
 Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
 
+Evidence must be *yours*: an actual test run you produced or an actual screenshot, not a claim the code will behave. If you can't produce before/after evidence (the environment won't run it), say so explicitly rather than writing "verified by inspection" — flagged as unverified beats silently assumed.
+
 ### Merge Danger
 
 Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
 
 The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
+
+**Name the door, don't just declare it.** For a two-way door, one line on what rollback looks like. For a one-way door, name what makes it irreversible (schema change, data migration, a public contract, a deleted route) and what a wrong merge would cost. An explicit "two-way; reverted by stepping the deploy back" is more useful than the word "two-way" alone.

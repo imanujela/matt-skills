@@ -1,3 +1,4 @@
 interface:
   display_name: "Migrate to Shoehorn"
-  short_description: "Replace test assertions with shoehorn"
+  short_description: "Replace test `as` assertions with shoehorn partials"
+  description: "Rewrites TypeScript test files to replace `as Type` with fromPartial, `as unknown as Type` with fromAny, and full-object casts with fromExact from @total-typescript/shoehorn. Ask which files and what data patterns, install the dev dependency, find casts with a targeted regex, convert them one by one, and verify with tsc --noEmit plus the test suite. Keep shoehorn out of production code."

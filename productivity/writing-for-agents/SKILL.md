@@ -11,6 +11,13 @@ When the document you're writing is a skill, read [`SKILL-MECHANICS.md`](SKILL-M
 
 A **context pointer** is a reference held in the agent's context that names some out-of-context material and encodes the condition for reaching it. A skill's description is one; a line in `AGENTS.md` naming a doc is the same object. The pointer's _wording_, not its target, decides when the agent reaches the material, and how reliably. A must-have target behind a weakly worded pointer is a variance bug: sharpen the wording first, and inline the material only if sharpening fails.
 
+A worked sharpening — same target, different trigger reach:
+
+> Weak: "When the plan is ready, see PLANNING.md for the definition of done."
+> Fixed: "When designing a plan — the draft, the review, the schedule — follow PLANNING.md for the definition of done."
+
+The weak wording fires only on the bare word "plan"; the fixed wording names the three branches the document actually handles (draft / review / schedule), so the agent reaches it on each of those paths, not just when it happens to repeat the title.
+
 A pointer does two jobs: state what the material is, and list the **branches** that should trigger reaching it (a branch is a distinct case the document handles, so different runs take different paths through it). Every word of an always-loaded pointer costs on every turn, so it earns even harder pruning than the body:
 
 - **Front-load the leading word**: the pointer is where it does its triggering work.
@@ -49,7 +56,12 @@ Every step ends on a **completion criterion**, the condition that tells the agen
 - **Clarity**: can the agent tell done from not-done? A vague bound ("understanding reached") invites **premature completion**: ending the step before it is genuinely done, attention slipping to _being done_. The visible steps still ahead (the **post-completion steps**) supply the pull; the criterion's clarity is the resistance. Defend in order: **sharpen the bound first** (local and cheap); only if it is irreducibly fuzzy _and_ you observe the rush, hide the later steps by splitting the sequence. Hiding only works across a real context boundary (a hand-off or a subagent dispatch; an inline call leaves the later steps in context and clears nothing).
 - **Demand**: how much it requires. "Every modified model accounted for" forces thorough work where "produce a change list" does not. Demand drives **legwork** (the digging the agent does within the work, latent in the wording rather than written as its own step), and it is not step-bound: "every rule applied" binds a body of flat reference just as "every step done" binds a sequence, which is how an all-reference document still carries an exhaustiveness bar.
 
-The strongest criteria are both checkable and exhaustive.
+The strongest criteria are both checkable and exhaustive. A worked contrast:
+
+> Weak: "Review the migration for issues."
+> Strong: "Every modified model accounted for — each one either updated to the new schema or explicitly marked unmigrated."
+
+The weak bound ("for issues") invites premature completion: "issues" never runs out, so the agent stops when it *feels* done. The strong bound is checkable (the agent can point at every model and name its fate) and exhaustive (nothing can silently slip past "every … accounted for"), so it forces the legwork the weak one lets the agent skip.
 
 ## When to split
 
@@ -79,3 +91,13 @@ You win twice: fewer tokens, and a sharper hook for the agent to hang its thinki
 - The **environment** is a source of truth too (`package.json` scripts, config files, the directory layout, `--help` output), and a document that restates it is a **cache**: a copy of a lookup, earning its load only when the lookup is expensive. Cache what the agent cannot find by looking: the unwritten convention, the reason behind a choice, the gotcha no config confesses. Leave the one-file, one-command lookups to the environment, where they cannot go stale.
 - Check every line for **relevance**: does it still bear on what the document does? A line loses relevance by never bearing on the task (mere exposition, or a branch that should be disclosed) or by going stale as the behaviour or world it describes changes. Shorter documents are easier to keep relevant. Without a pruning discipline the default fate is **sediment**: stale layers that settle because adding feels safe and removing feels risky, until you must core down through them to find what is still live.
 - Hunt **no-ops** sentence by sentence: an instruction the model already obeys by default pays load to say nothing. The test (does it change behaviour versus the default?) is model-relative, not reader-relative: two people disagreeing about a no-op disagree about the default, and settle it by running the document, not by debate. When a sentence fails, delete the whole sentence rather than trim words from it. The test also grades leading words: a word too weak to beat the default (_be thorough_ when the agent is already thorough-ish) is a no-op, and the fix is a stronger word (_relentless_), not a different technique.
+
+## Verify by running
+
+None of the levers above is provable by reading. The no-op test is model-relative, which means the document's only honest judge is a run. Before calling a document done:
+
+1. **Walk one realistic run through it** — take the point of view of a fresh agent and step through the branches. Watch for where the run stalls: a step with no clear done-condition, a pointer whose trigger never fires on the natural phrasing, a term used before it's defined, a reference the text names but the agent has no way to reach.
+2. **At each stall, apply the lever it points at**: sharpen the bound, disclose the reference, strengthen the leading word, cut the no-op — never patch the symptom with more words.
+3. **Re-run after every edit.** A change you can't attribute to a behaviour improvement was probably a no-op or a prune-pending, not an upgrade.
+
+The document is finished when a realistic run gets through it without the agent pausing to guess — not when it reads well.

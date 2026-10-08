@@ -1,5 +1,12 @@
 interface:
   display_name: "Teach"
   short_description: "Learn a concept in a guided workspace"
+  long_description: >
+    Teach the user a new skill or concept over multiple sessions, treating the
+    current directory as a stateful teaching workspace. Runs a five-step session
+    loop (orient, set target, ground, teach, close) supported by MISSION.md,
+    learning-records/, lessons/, reference/, assets/, RESOURCES.md and NOTES.md.
+    Lessons are short beautiful interactive HTML tuned to the user's zone of
+    proximal development and grounded in high-trust sources. Not model-invoked.
 policy:
   allow_implicit_invocation: false

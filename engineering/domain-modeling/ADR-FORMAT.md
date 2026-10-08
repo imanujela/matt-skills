@@ -45,3 +45,10 @@ If a decision is easy to reverse, skip it: you'll just reverse it. If it's not s
 - **Deliberate deviations from the obvious path.** "We're using manual SQL instead of an ORM because X." Anything where a reasonable reader would assume the opposite. These stop the next engineer from "fixing" something that was deliberate.
 - **Constraints not visible in the code.** "We can't use AWS because of compliance requirements." "Response times must be under 200ms because of the partner API contract."
 - **Rejected alternatives when the rejection is non-obvious.** If you considered GraphQL and picked REST for subtle reasons, record it; otherwise someone will suggest GraphQL again in six months.
+
+## Writing the why
+
+The "why" is the whole value, so make it survive its own context. Two tests for a good reason:
+
+- **It names the trade-off, not just the choice.** "We chose Postgres" is a fact; "we chose Postgres over a document store because the queries are relational and we need transactions" is a reason the next engineer can interrogate.
+- **It would change someone's behaviour.** A reason that just restates the decision ("because it's the best choice") stops nobody from relitigating it. A reason that names the constraint or the rejected alternative is what makes the ADR a load-bearing document rather than a museum piece.

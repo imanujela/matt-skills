@@ -39,6 +39,15 @@ Of these, the leading word is the most valuable fragment to land. It is load-bea
 
 The novelist's diary is the model: years of unstructured noticings that later get mined for raw material. Fragments are noticings.
 
+### Running the grilling
+
+The session earns its keep on the *mining*, not the appending. Interview relentlessly, and let the dig surprise both of you:
+
+- **Chase the concrete.** "Give me a specific time that happened" beats "how do you feel about it?". Concrete moments are the fragments most likely to survive into the final piece.
+- **Name the recurring thread.** When the same idea keeps coming back, that's a leading word waiting to be coined. Push: "What would you call this thing we keep circling?"
+- **Resist premature structure.** If the user starts outlining or phasing, gently refuse — that's exploit's job. Capture the raw thought and keep digging.
+- **A fragment can come from you.** If the conversation sparks a line or an analogy in you, offer it as a candidate fragment. Explore is two-way; the file should not be a transcript of the user alone.
+
 ## File format
 
 ```markdown
@@ -75,5 +84,7 @@ Append silently. Don't ask permission for each fragment. Mention what you added 
 Before every write: re-read the file from disk. The user may have edited, reordered, or deleted fragments between turns, so preserve their changes. Never overwrite the file; only append (or, if the user asks, edit a specific fragment in place).
 
 The user can say "cut the last one", "rewrite that one sharper", "merge those two" at any time. Treat those as first-class instructions.
+
+Do not pad the file to fill it. A handful of good fragments is worth more than forty of filler; the session's goal is a pile worth mining, not a long pile. When the conversation has genuinely run dry, say so and stop adding rather than manufacturing fragments.
 
 </supporting-info>

@@ -4,6 +4,8 @@ description: "Turn the current conversation into a spec and publish it to the pr
 disable-model-invocation: true
 ---
 
+# To Spec
+
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
 The issue tracker and triage label vocabulary should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
@@ -17,6 +19,8 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 Check with the user that these seams match their expectations.
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+
+**Before publishing, review the spec cold.** Read it back as someone who has not been in the conversation: does the Problem Statement match what the user said, are the User Stories exhaustive, and do the seams match what you agreed? A spec that silently dropped a decision made earlier in the thread is the most expensive defect in this whole flow, because it looks authoritative and isn't.
 
 <spec-template>
 
@@ -39,6 +43,8 @@ A LONG, numbered list of user stories. Each user story should be in the format o
 </user-story-example>
 
 This list of user stories should be extremely extensive and cover all aspects of the feature.
+
+**A good story names an actor and a benefit.** "As a user, I want a report" is a feature statement in disguise. Push each story to name who, what, and what it unlocks — and make the set cover the edge actors too (not just the happy-path user), since those are where the untested requirements hide.
 
 ## Implementation Decisions
 
@@ -63,6 +69,8 @@ A list of testing decisions that were made. Include:
 - A description of what makes a good test (only test external behavior, not implementation details)
 - Which modules will be tested
 - Prior art for the tests (i.e. similar types of tests in the codebase)
+
+State the agreed seams here (echoing step 2) so an implementer has the contract in writing, not just in memory of the conversation.
 
 ## Out of Scope
 

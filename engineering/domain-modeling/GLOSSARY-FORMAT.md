@@ -10,7 +10,7 @@
 ## Language
 
 **Order**:
-{A one or two sentence description of the term}
+{One or two sentence description of the term}
 _Avoid_: Purchase, transaction
 
 **Invoice**:
@@ -28,6 +28,13 @@ _Avoid_: Client, buyer, account
 - **Keep definitions tight.** One or two sentences max. Define what it IS, not what it does.
 - **Only include terms specific to this project's context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
 - **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
+
+## Writing a good definition
+
+Two further rules make a definition earn its line rather than pad the file:
+
+- **Define what it IS, not what it does.** "A request for payment sent to a customer after delivery" describes the thing; "sends a payment request" describes an action. Definitions should let a reader recognise the concept, not rehearse its behaviour.
+- **The `_Avoid_` list is part of the definition.** It's not decoration: it tells a writer (agent or human) which synonyms to *stop using*. A glossary entry with no `_Avoid_` is a loose end — the very word it wants to banish will keep leaking into output.
 
 ## Single vs multi-context repos
 

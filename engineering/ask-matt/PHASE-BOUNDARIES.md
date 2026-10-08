@@ -50,6 +50,16 @@ Every move except **Continue** turns a **primary source** into a **secondary sou
 
 This is why question 1 comes first. You only pay the lossiness when staying costs more than it saves.
 
+## Worked examples
+
+Three boundaries, three different answers — to make the tree concrete, not to exhaust it.
+
+- **After grilling, before implementing.** You just pinned the design with the user in a working directory. The implementation wants that reasoning verbatim → the answer is almost always **Continue**. This is the standard yes, and it's why grilling is stateful: you're handing the sharpened thinking straight to the build.
+- **After the build, before QA.** The code is written and reviewed, and QA is a fresh concern over a finished artifact. The build's exploration is now disposable, but you'll want the *commit messages* (which live outside the window) → **`/clear`** is cheap and right, and `/retro` can later be pointed at the session log.
+- **Mid-phase, you spot an unrelated bug in the file you're touching.** Don't compact and don't abandon the main thread → **`/handoff`** the side bug to its own file so it travels with context, and continue the main work. This is exactly the "forking a side task mid-phase" clause.
+
 ## These are judgement calls
 
 The questions are not objective: each has taste in it, and the same boundary can go two ways on two days. The value is in asking them **in order**, at the boundary rather than in the middle of the work.
+
+A second thing to hold: the tree is about *this* boundary, not the next. Don't skip **Continue** because you anticipate needing `/compact` three phases from now. Decide this boundary on this boundary's facts.

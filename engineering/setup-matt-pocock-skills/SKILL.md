@@ -29,6 +29,8 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. These are present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
 
+**Check for prior install and preserve it.** If `docs/agents/*.md` already exist, read them before proposing anything. Re-running this skill to *change* a tracker should respect the labels and layout the previous run established; don't blow them away with a default you'd now prefer.
+
 ### 2. Present findings and ask
 
 Summarise what's present and what's missing. Then take the sections in order. One section, one answer, then the next.
@@ -101,7 +103,7 @@ The block:
 
 Include the `### Triage labels` sub-block, and write `docs/agents/triage-labels.md`, only when `triage` is installed and Section B ran. When it isn't, both are omitted.
 
-When Section B ran on GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`).
+When Section B ran on GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`). Check existence first (`gh label list`) so you create only the missing ones and never duplicate.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 
@@ -116,3 +118,5 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 ### 5. Done
 
 Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+
+**Verify what you wrote.** After writing, re-read `docs/agents/*.md` and the edited `CLAUDE.md`/`AGENTS.md` block back, and confirm the label step could run: list the tracker's labels and confirm the five roles (or the overrides) are present. A setup nobody verified has a way of being the setup that silently breaks `/triage` weeks later.

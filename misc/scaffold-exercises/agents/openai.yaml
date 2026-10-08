@@ -1,3 +1,4 @@
 interface:
   display_name: "Scaffold Exercises"
   short_description: "Scaffold lint-ready course exercises"
+  description: "Creates lint-ready exercise directory structures in the pnpm course repo: sections (XX-name/) containing exercises (XX.YY-name/) with problem, solution, and explainer variant subfolders, each with a non-empty readme and a main.ts when code is present. Parse the plan, mkdir -p the trees, write readme stubs, run `pnpm ai-hero-cli internal lint`, fix until green, and commit. Use git mv for renames."

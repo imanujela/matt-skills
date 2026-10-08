@@ -189,11 +189,11 @@ finish() {
 # Replace the example below. Set TOTAL_STAGES to match the stages you write.
 # ──────────────────────────────────────────────────────────────────────────
 
-TOTAL_STAGES=1
+TOTAL_STAGES=2
 
 banner "Stripe setup"
 
-# ── Example stage: replace with your real steps ───────────────────────────
+# ── Example stages: replace with your real steps ──────────────────────────
 stage "Stripe: API keys"
 say "We'll grab your Stripe test keys and store them for local dev + CI."
 open_url "https://dashboard.stripe.com/test/apikeys"
@@ -204,6 +204,18 @@ ask_secret STRIPE_SECRET_KEY "Paste the secret key:"
 write_env STRIPE_PUBLISHABLE_KEY "$STRIPE_PUBLISHABLE_KEY"
 write_env STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"
 set_secret STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"   # CI needs this one
+
+# Pure-action stage, gated: demonstrates confirm before an irreversible step.
+stage "Stripe: point the project at test mode"
+say "Switch the checkout provider config to the test keys so nothing charges real cards."
+open_url "https://dashboard.stripe.com/test"
+step "On the Developers → Webhooks page, click 'Add endpoint' and paste: http://localhost:3000/api/webhooks"
+if confirm "Deploy webhook endpoints to production now?"; then
+  say "Leave them pointed at localhost; confirm you want production webhooks first."
+  note "Skipped deploying to production."
+else
+  note "OK — keeping everything on test mode."
+fi
 # ──────────────────────────────────────────────────────────────────────────
 
 finish

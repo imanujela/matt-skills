@@ -66,6 +66,8 @@ Work the **frontier**: any ticket whose blockers are all done. For a purely line
 
 Do NOT close or modify any parent issue.
 
+**Verify the graph before you consider it published.** If you set native blocking edges, confirm they landed (read a ticket back and see its blockers). A frontier computed from edges that silently failed is a plan that starts in the wrong place. On a real tracker where edges are created in a second pass, spot-check the first and last edges rather than trusting the loop.
+
 <local-ticket-template>
 
 # <NN>: <Ticket title>
@@ -103,3 +105,11 @@ The end-to-end behaviour this ticket makes work, from the user's perspective, no
 </issue-template>
 
 In either form, avoid specific file paths or code snippets: they go stale fast. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
+
+## Refining the breakdown
+
+The approved breakdown is the contract an implementer works from, so the quiz in step 4 is worth doing well, not quickly:
+
+- **Merge when slices are too fine** (two slices that only make sense built together, or that both touch the same seam within one context window).
+- **Split when a slice exceeds a fresh context window.** "Fits in one window" is the sizing rule — if any single slice has more work than a session can hold, it will be dropped mid-build and its dependency edges will mislead.
+- **Watch for the hidden dependency.** A slice's *output shape* sometimes gates a later slice even when the user's edges say otherwise; if two slices both define a schema, the first must own it (or the second must be blocked on it).

@@ -11,6 +11,10 @@ The delightful UX is already solved by [template.sh](template.sh): stage-by-stag
 
 A wizard is ephemeral by default: built for one run, saved to a scratch or `scripts/` path, deleted when the job's done. Commit it only when the user wants a repeatable setup path that should live in the repo.
 
+## When to reach for a wizard
+
+Only for steps **a human genuinely has to take** — and only when the procedure will be re-explained more than once. If the agent could do it itself, it should (that's not a wizard, it's a command). The signal: the step needs something only a human holds — a login, a 2FA code, a card, a dashboard click — and it's tedious enough that re-explaining it every session is worse than building the script once.
+
 ## Process
 
 ### 1. Scope the procedure
@@ -36,9 +40,20 @@ Copy `template.sh` to the target path. Replace the example stage with one `stage
 
 Hold the bar the template sets: open the URL before asking for its value, use `ask_secret` for anything secret, `write_env` every persisted value, `set_secret` only the values CI actually needs, and `confirm` before any irreversible action. Each `stage` clears the screen so only the current step is visible: keep a stage to one focused task so nothing the human needs scrolls away. Don't touch the library above the marker.
 
+Authoring rules that make a wizard survivable:
+
+- **Open before asking.** A stage should open the URL and say what to click *before* `ask`/`ask_secret` collects the value — the human shouldn't have to hunt for the page while the script waits.
+- **`confirm` only the irreversible.** Ask for a yes/no at destructive or hard-to-undo steps (a migration, a cutover, a production write). Routine steps don't need a gate; a gate on every stage is as annoying as none.
+- **Write what CI actually reads.** `write_env` every persisted value (so local dev has it), but `set_secret` only what a `secrets.*` reference in `.github/workflows/*` actually needs — writing secrets CI never reads is noise and a security smell.
+- **One value per prompt.** Don't chain "paste key then paste region" in one `ask`; separate `ask`s keep the human's place and make re-runs (Enter keeps current) meaningful.
+
 ### 4. Verify and hand off
 
 - `bash -n <script>`; run `shellcheck` if available.
 - `chmod +x <script>`.
 - Don't run it end-to-end yourself: it opens browsers and blocks on human input. Trace it statically instead: every value from step 1 is captured and lands where step 1 said, and every `set_secret` name exactly matches a `secrets.*` reference in CI.
 - Tell the user how to run it. If it's a repeatable setup path, commit it and link it from the README so the next person runs the script instead of asking an AI.
+
+## Re-run and idempotency
+
+A wizard should be safe to re-run partway: `ask`/`ask_secret` offer "Enter keeps current" from the `.env` value, `write_env` upserts rather than duplicates, and the closing summary lists what was set and what was skipped. Tell the human they can Ctrl-C at any stage and re-run later — that guarantee is what lets them pause a setup across coffee breaks. Keep stages independent where you can so a re-run after a failure doesn't repeat work that already landed.

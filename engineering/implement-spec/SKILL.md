@@ -4,6 +4,8 @@ description: "Implement the result of /to-spec and /to-tickets in code."
 disable-model-invocation: true
 ---
 
+# Implement Spec
+
 You have been provided a spec. This spec should have tickets associated with it, describing how to implement the spec.
 
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
@@ -18,7 +20,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 ## Steps
 
-1. Read the spec and tickets to understand the task graph.
+1. Read the spec and tickets to understand the task graph. Identify the ticket types (research vs build), the blocking edges, and the ready **frontier**.
 
 2. (optional) Use an **exploration subagent** to conduct any exploration required by the tickets - relevant codebase files or external documentation. Ensure the exploration subagent can save files - it should save its markdown notes in a directory outside the repo, accessible by all future subagents. This lets **implementer subagents** focus on implementation rather than exploration.
 
@@ -38,3 +40,10 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 8. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch.
 
 9. Clean up all **implementer subagent** worktrees.
+
+## Discipline for the subagent swarm
+
+- **One ticket, one implementer, one worktree.** A subagent that starts a second ticket before its first merges has lost the plot; finish and merge first.
+- **Corruption containment.** The integration branch is the only shared surface. Every other branch is disposable, so a subagent that goes sideways is discarded, not repaired — reset its worktree onto the integration branch and re-run rather than untangling a bad merge.
+- **Verify the seam exists before the swarm fans out.** If you launch implementers and the first one reports "no seam to test at", that's a spec defect that will cost N other subagents the same discovery. Fail fast on ticket seams in step 1 by reading what `/to-tickets` fixed.
+- **The frontier stays fresh.** Waiting for tickets is the only idle; when a merge unblocks tickets, launch them before anything else. Concurrency is the point of this skill over driving `/implement` by hand.

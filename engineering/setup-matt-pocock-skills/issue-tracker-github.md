@@ -14,6 +14,8 @@ Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all o
 
 Infer the repo from `git remote -v`; `gh` does this automatically when run inside a clone.
 
+**Before trusting a command's effect, verify it.** Label writes and closes should be confirmed with a read-back (`gh issue view <n>`) rather than assumed — a quoting or repo-scope mistake that silently misses is worse than a raised error.
+
 ## Pull requests as a triage surface
 
 **PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_

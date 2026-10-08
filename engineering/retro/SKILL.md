@@ -4,7 +4,11 @@ description: "Conduct a retrospective on a coding session."
 disable-model-invocation: true
 ---
 
+# Retro
+
 The user has asked for a **retrospective**. You are suggesting improvements to the coding agent's **environment** to improve future runs.
+
+The bias of the whole skill: **improve the environment, not the code.** The code of that session is built and reviewed; what you're changing is the machinery that will build the *next* session. Mechanical mistakes become deterministic checks; judgement calls become coding standards.
 
 ## Steps
 
@@ -42,3 +46,18 @@ You have access to several files in the repo:
 - `CODING_STANDARDS.md`: this file is read during review, not implementation. Add **navigation pointers** to docs folders if the standards file gets more than 1,000 lines long.
 - Docs: use docs as references files, pointed to by other files. Look for existing docs before writing new ones.
 - Skills: use skills for docs (since their description goes into the agent's context window), or for user-invoked commands. Follow the advice in the `writing-for-agents` skill.
+
+## Severity ordering
+
+Not every candidate earns a change. Rank by a single question: **would this have caught or saved the specific failure that happened?** From most to least severe:
+
+1. **A mechanical check that prevents the failure** (highest) — the mistake never recurs because it can't.
+2. **A coding-standard rule** the reviewer will enforce next time — covered only if the reviewer reads the diff.
+3. **A navigation pointer or info access** — saves the next session's time, doesn't fix correctness.
+4. **Removing a no-op or trimming a large file** — hygiene, rarely urgent.
+
+Present this ranked list and be honest about which candidates are worth it versus which are marginal. A retro that recommends ten changes to the environment has stopped being a review and started being scope creep; recommend the few that would have mattered.
+
+## Promise, then execute the handoff
+
+A retro's value is the next session running better, so the recommendations have to land somewhere. Don't stop at "you should add a lint rule." Ask the user to let you make the change (add the rule, write the guardrail, add the pointer) or record it in a place that outlives this session. An improvement that dies in the session is the no-op the skill warns about, applied to itself.

@@ -49,3 +49,9 @@ If the concept you need isn't in the glossary yet, that's a signal: either you'r
 If your output contradicts an existing ADR, surface it explicitly rather than silently overriding:
 
 > _Contradicts ADR-0007 (event-sourced orders), but worth reopening because…_
+
+The reason must be real: a plan that quietly overrides a recorded decision forfeits the decision's whole point — a future reader can no longer tell the difference between "this was reconsidered" and "this was forgotten."
+
+## Reading an ADR
+
+An ADR answers three questions in ~three sentences: the context, the decision, and why. When one touches your area, confirm the fact pattern before building on it: a decision recorded against a component that has since been renamed is a *relevant context pointer* and a *stale reference* at the same time — read its intent, not just its letter.

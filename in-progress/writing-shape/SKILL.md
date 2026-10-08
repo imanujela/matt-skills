@@ -50,6 +50,8 @@ Specific moves to keep using:
 - "This sentence is doing two jobs: split it or pick one."
 - "The opening promised X. We've drifted to Y. Either re-thread it or change the opening."
 
+One piece of spine to keep holding: the article must keep earning toward what the opening promised. If several blocks stall or pad, that's usually a sign the opening was the wrong one or the angle drifted — raise it as a decision rather than quietly pushing on.
+
 ## Pulling from the pile
 
 Treat the raw material as a quarry, not a script. Pull a fragment, rework it to fit the surrounding paragraph, and place it. A fragment may be split across multiple paragraphs, merged with another, or paraphrased. The pile's job is to be mined; the article's job is to read as one voice.
@@ -65,10 +67,15 @@ When choosing how to render a block, weigh these tradeoffs out loud with the use
 - **Table vs. repeated structure.** If the same shape repeats 3+ times with the same fields, a table. Otherwise prose with bold leads.
 - **Quote vs. paraphrase.** Quote when the original wording is the point. Paraphrase when only the idea matters.
 - **Code block vs. inline code.** Multi-line, runnable, or illustrative → block. Single token or identifier → inline.
+- **Heading vs. no heading.** A heading should earn itself: it promises a new topic. If the block continues the current topic, no heading — let the prose carry it. Only reach for a heading when the piece turns to something new.
+
+Don't default silently to a paragraph. If you never argue about format, the article quietly becomes a wall of prose that would read better as a list or a table. Raise the choice; the user decides.
 
 ## Writing rhythm
 
 Append to the article file as each block is agreed. Re-read the file from disk before every write: the user may have edited between turns. Never overwrite blindly. If the user wants a paragraph rewritten, edit that specific paragraph in place; leave the rest alone.
+
+Don't batch the writing — write as each block lands so the user watches the article take shape and can redirect early, before momentum has carried you past a wrong turn.
 
 ## Out of scope
 

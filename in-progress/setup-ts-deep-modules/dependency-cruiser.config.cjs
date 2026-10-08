@@ -20,6 +20,13 @@ const R = PACKAGES_ROOT;
  * A package's private internals: anything nested inside a package subfolder.
  * The package's root files are its entry points and are NOT matched here:
  * they stay importable from outside.
+ *
+ * `<R>/<name>/<subfolder>/...` is exactly the shape that is matched. A root
+ * file at `<R>/<name>/index.ts` has only two path segments past the root, so
+ * it is NOT a match and remains public. If you see rules firing on root-to-
+ * root imports, your PACKAGES_ROOT likely has a trailing slash or the repo's
+ * package dirs are structured differently — fix PACKAGES_ROOT, don't weaken
+ * the rules.
  */
 const PACKAGE_INTERNALS = `^${R}/[^/]+/[^/]+/`;
 
@@ -86,6 +93,8 @@ module.exports = {
     // },
   ],
   options: {
+    // Anything depcruise can't follow is simply not scanned — keep the noise
+    // out here rather than deleting rules when a scan trips up.
     doNotFollow: { path: "node_modules" },
     tsConfig: { fileName: "tsconfig.json" },
     enhancedResolveOptions: {

@@ -4,6 +4,8 @@ description: Plan a huge chunk of work (more than one agent session can hold) as
 disable-model-invocation: true
 ---
 
+# Wayfinder
+
 A loose idea has arrived, too big for one agent session, and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **shared map** on the repo's issue tracker, then works its **decision tickets** (questions whose resolution is a decision, not slices of a build to execute) one at a time until the route is clear.
 
 The destination varies per effort, and naming it is the first act of charting: it shapes every ticket. It might be a spec to hand off and iterate on, a decision to lock before planning starts, or a change made in place like a data-structure migration. The map is domain-agnostic: engineering work, course content, whatever fits the shape.
@@ -102,7 +104,7 @@ Ruling something out of scope is a scoping act, not a step on the route. When a 
 
 ## Invocation
 
-Two modes. Either way, **never resolve more than one ticket per session**, with the exception of research tickets.
+Two modes. Either way, **never resolve more than one ticket per session**, with the exception of research tickets. This is the discipline that keeps the map honest: one decision, fully made and recorded, per session, so a resolution is never rushed to squeeze in a second. The "research tickets resolve in parallel" exception exists because research returns facts, not decisions, and doesn't consume the decision-making depth a session needs.
 
 ### Chart the map
 
@@ -126,3 +128,7 @@ User invokes with a map (URL or number). A ticket is **optional**: without one, 
 5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket (this one or another) sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.
+
+## Handing off, not building
+
+The map's whole purpose is to be handed off once the way is clear. When the frontier empties — no open, unblocked, unclaimed tickets remain — the map is done and the effort hands onto the main flow at `/to-spec`, which collapses the map's linked decisions into a buildable plan. State that handoff explicitly rather than letting the work trail into an unplanned build. If a decision came out of a map ticket that changes the domain model, the `## Notes` section is where that context rides so `/to-spec` picks it up.

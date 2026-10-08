@@ -32,6 +32,8 @@ The right shape depends on the question:
 
 Pick whichever shape best fits the question being asked, *not* whichever is easiest to wire to a page. Keep it pure: no DOM, no `document`, no button handlers reaching inside it. The page calls into it; nothing flows the other direction. This is what makes the prototype useful past its own lifetime: once the question's answered, the validated reducer / machine / function set lifts into the real module on its own.
 
+**Let the module's shape encode the model.** If the state machine is the answer, write it as an explicit states-and-transitions object, not a pile of conditionals — so what got validated is visible at a glance and lifts without archaeology.
+
 ### 3. Build the shareable HTML file
 
 One file, plain HTML/CSS/JS: no framework, no bundler, no server, everything inline so it opens by double-click and survives being emailed around. Anyone should be able to run it by opening it.
@@ -49,6 +51,8 @@ Choose scenarios that demonstrate the awkward cases, the ones hard to reason abo
 
 Keep it beautiful but restrained: clean typography, generous spacing, one accent colour. No animations, no gimmicks: nothing that competes with the state and the buttons.
 
+**Disable what the model forbids.** An "attempt at something that should be illegal" only proves the model if the illegal action is presented and the model rejects it — don't just grey it out. Reject visibly, in domain language ("can't cancel a dispatch in transit"), so the user *sees* the boundary being enforced.
+
 ### 4. Hand it over
 
 Send them the file, or open it for them. They'll click through the walkthroughs and free-play whenever they get to it; the interesting moments are when they say "wait, that shouldn't be possible" or "huh, I assumed X would be different"; those are the bugs in the _idea_, which is the whole point. If they want new actions or a new scenario, add them. Prototypes evolve.
@@ -65,3 +69,4 @@ Once the prototype has answered its question, capture the answer, then capture t
 - **Don't blur the logic and the page together.** If the pure module references the DOM, `document`, or button handlers, it's no longer liftable. Keep the page as a thin shell over a pure module.
 - **Don't reach for a framework, bundler, or server.** One file the recipient double-clicks; a React app or a dev server defeats "shareable".
 - **Don't ship the HTML shell into production.** The page is optimised for being clicked through by hand. The logic module behind it is the bit worth keeping.
+- **Don't let the walkthroughs hide the model.** If every next-step button does its own inline setup, the pure module no longer encodes the transitions. Route every click through the same module API.

@@ -78,7 +78,7 @@ Tell the user this is a starter template to copy or delete.
 
 ### 6. Prove the rules bite
 
-This is the completion criterion for the whole skill: a config that doesn't fail on a violation is worthless.
+This is the completion criterion for the whole skill: a config that doesn't fail on a violation is worthless. Never skip this step and never trust the config "looks right" — a regex that silently matches nothing passes a clean run. The negative test is the only thing that proves the rules are live.
 
 1. Run `lint:boundaries`. It must **pass** on the clean example.
 2. Temporarily add a deep import to `tests/example.test.ts` (e.g. `import { thing } from "../lib/impl"`). Run `lint:boundaries` again; it must **fail** with `tests-through-entrypoints`.
@@ -93,6 +93,15 @@ Write a `README.md` **in the packages folder** (`<packages-root>/README.md`, nex
 Then add a **context pointer** to it from the repo's agent-instructions file (`CLAUDE.md` if present, else `AGENTS.md`, creating `AGENTS.md` if neither exists). One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` This is what makes an agent discover the boundary rule instead of tripping over it.
 
 **Done when:** `<packages-root>/README.md` exists and discourages barrels, and the repo's `CLAUDE.md`/`AGENTS.md` links to it.
+
+## Troubleshooting
+
+The failure to watch for is a rule that matches so little that it passes everything and enforces nothing. Symptoms and fixes:
+
+- **The deep-import test fails to fail (step 6).** Either `PACKAGES_ROOT` doesn't match the real layout (`src/packages` vs `packages`), or the import path in your negative test isn't actually deep (it resolved to a root file). Re-check the paths literally.
+- **Regex matches more than intended — e.g. it flags root-to-root imports.** Verify `PACKAGES_ROOT` has no trailing slash and that the `[^/]+/[^/]+/` pattern requires the two-level depth that defines "inside a subfolder." A package at `<root>/pkg/index.ts` has exactly two path segments past the root, so it is *not* matched — only `<root>/pkg/<subfolder>/…` is.
+- **Scan errors or "cannot analyze" noise.** If dependency-cruiser chokes on something, narrow `doNotFollow` or add the offending path to the config's `exclude`/`doNotFollow` rather than deleting rules. Keep the four rules intact.
+- **Monorepo gotchas.** If package imports resolve through TS path aliases, the scan may need the `enhancedResolveOptions` to see them; verify a real cross-package edge appears in the dependency graph before declaring victory.
 
 ## Notes
 

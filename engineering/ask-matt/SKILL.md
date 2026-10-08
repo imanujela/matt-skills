@@ -95,3 +95,18 @@ Off the main flow entirely.
 ## Precondition
 
 **`/setup-matt-pocock-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+
+## Picking between the easy-to-confuse ones
+
+When a situation sits near a boundary, anchor on the question that separates the neighbours:
+
+| Situation | Pick | Why not the neighbour |
+| --------- | ---- | --------------------- |
+| Bug that resists a first glance | `/diagnosing-bugs` | Not `/triage` — triage is for *incoming reports*, not your own debugging session. |
+| "What should this look like?" / "does this state model feel right?" | `/prototype` | Not `/research` or `/to-spec` — you need a runnable artifact, not a read or a plan. |
+| Sharpening a plan with no repo under it | `/grill-me` | Not `/grill-with-docs` — that one needs a working directory to leave its paper trail in. |
+| Idea you can't hold in one session | `/wayfinder` | Not `/grill-with-docs` — the fog is too big for a single interview; you need a map. |
+| Requests you didn't create, piling up | `/triage` | Not `/to-tickets` — tickets you made are already agent-ready; only raw arrivals get triaged. |
+| Steps only a human can take (credentials, dashboard) | `/wizard` | Not anything else — if the agent could do it, no wizard is needed. |
+
+The router's fallback rule: if you're genuinely torn, prefer the skill that **leaves a durable artifact** (a spec, a ticket, a glossary entry, a regression test, a cited research file) over the one that just answers the moment. Stateful beats stateless whenever the work will be revisited.

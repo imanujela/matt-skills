@@ -4,6 +4,8 @@ An agent brief is a structured comment posted on a GitHub issue or PR when it mo
 
 The brief states **what the agent should do**, which stretches to both surfaces: for an issue, that's building the change from nothing; for a PR, it's what's left to do *to the existing diff*: finish it, close gaps, address review points. Same principles either way; the PR example below shows the difference.
 
+An AFK agent may arrive hours or weeks later and in a codebase that has moved. The whole craft of the brief is making it survive that gap.
+
 ## Principles
 
 ### Durability over precision
@@ -32,9 +34,15 @@ The agent needs to know when it's done. Every agent brief must have concrete, te
 - **Good:** "Running `gh issue list --label needs-triage` returns issues that have been through initial classification"
 - **Bad:** "Triage should work correctly"
 
+Make each criterion **binary**: an agent should be able to answer "does it pass or not" without judgement. "Edge cases handled gracefully" is a wish; "returns an empty result instead of throwing for a missing id" is a check.
+
 ### Explicit scope boundaries
 
 State what is out of scope. This prevents the agent from gold-plating or making assumptions about adjacent features.
+
+### Self-contained
+
+The brief must be read alone. The agent may not have access to the issue's earlier comments or the PR thread — quote any decision that matters rather than referencing "as discussed above". A brief that needs the thread to be understood has failed its own durability rule.
 
 ## Template
 
