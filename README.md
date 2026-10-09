@@ -1,4 +1,22 @@
-# Changes — skills/ folder rewrite
+# imanujela/matt-skills
+
+A refined rewrite of [Matt Pocock's skills](https://github.com/mattpocock/skills) — 45 agent skills (engineering, productivity, in-progress, misc), deepened and sharpened in place by an AI coding agent. Same filenames and structure as the original; intent preserved, guidance made more useful.
+
+## Install
+
+```bash
+npx skills@latest add imanujela/matt-skills
+```
+
+Choose the skills you want and which coding agents to install them on. **Include `setup-matt-pocock-skills`**, then run `/setup-matt-pocock-skills` once per repo — it wires up the issue tracker, triage-label vocabulary, and domain-doc layout the other skills read from.
+
+Pull updates later with `npx skills@latest update`.
+
+> **Claude Code plugin route.** This fork has no `.claude-plugin/marketplace.json`, so `claude plugins install imanujela/matt-skills` won't work (the official `mattpocock-skills` plugin points at the upstream `mattpocock/skills`). Add a marketplace manifest to this repo to enable the plugin route.
+
+---
+
+## What changed (2026-10-08)
 
 **Date:** 2026-10-08
 **Scope:** All 45 skills across the 5 categories in `skills/` (engineering, in-progress, productivity, misc + deprecated index), rewritten in place — same filenames, same file structure, YAML frontmatter preserved, core intent preserved.
@@ -50,6 +68,7 @@ Every skill was upgraded to be genuinely more useful, not cosmetically edited: g
 - **to-questionnaire** — "asking for the gap" sub-step, question-crafting rules, don't-lead.
 - **wait-what** — from a one-liner to a real procedure: what fires it, gap diagnosis, three-move re-pitch with template and rules.
 - **writing-for-agents** — three on-theme worked examples (context-pointer sharpening, completion-criterion contrast, verify-by-running) and invocation-choice flow in SKILL-MECHANICS.
+- **README.md** — descriptions updated to match.
 
 ## Misc
 
